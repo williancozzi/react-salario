@@ -1,0 +1,10 @@
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgba(245, 245, 190, 0.842);
+  width: 25%;
+}
+

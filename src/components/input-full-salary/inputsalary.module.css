@@ -1,0 +1,11 @@
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgba(230, 230, 230, 0.664);
+  width: 80%;
+  margin-bottom: 20px;
+}
+
