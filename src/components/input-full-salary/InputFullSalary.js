@@ -14,10 +14,10 @@ export default class InputFullSalary extends Component {
       <div className={css.flexRow}>
         <span>{title}</span>
         <input
-          placeholder="Insira aqui seu salário"
+          placeholder="Insira seu salário aqui"
           type="number"
           value={value}
-          min={0}
+          min={1045}
           max={999999}
           step={10}
           onChange={this.handleInput}

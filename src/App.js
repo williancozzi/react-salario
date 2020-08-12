@@ -18,6 +18,9 @@ export default class App extends Component {
       bar1: 0,
       bar2: 0,
       bar3: 100,
+      percentINSS: 0,
+      percentIRPF: 0,
+      percentNet: 0,
     };
   }
 
@@ -34,6 +37,17 @@ export default class App extends Component {
       bar1: finalValue.discountINSS,
       bar2: finalValue.discountIRPF,
       bar3: finalValue.netSalary,
+      percentINSS: (
+        (finalValue.discountINSS / finalValue.baseINSS) *
+        100
+      ).toFixed(2),
+      percentIRPF: (
+        (finalValue.discountIRPF / finalValue.baseINSS) *
+        100
+      ).toFixed(2),
+      percentNet: ((finalValue.netSalary / finalValue.baseINSS) * 100).toFixed(
+        2
+      ),
     });
   };
 
@@ -47,6 +61,9 @@ export default class App extends Component {
       bar1,
       bar2,
       bar3,
+      percentINSS,
+      percentIRPF,
+      percentNet,
     } = this.state;
 
     return (
@@ -65,19 +82,19 @@ export default class App extends Component {
             <InputReadOnly value={`R$ ${baseINSS}`} title={"Base INSS:"} />
             <InputReadOnly
               color={"#e67e22"}
-              value={`R$ ${discountINSS}`}
+              value={`R$ ${discountINSS} (${percentINSS}%)`}
               title={"Desconto INSS:"}
             />
             <InputReadOnly value={`R$ ${baseIRPF}`} title={"Base IRPF:"} />
             <InputReadOnly
               color={"#c0392b"}
-              value={`R$ ${discountIRPF}`}
+              value={`R$ ${discountIRPF} (${percentIRPF}%)`}
               title={"Desconto IRPF:"}
             />
           </div>
           <InputReadOnly
             color={"#16a085"}
-            value={`R$ ${netSalary}`}
+            value={`R$ ${netSalary} (${percentNet}%)`}
             title={"Salário Líquido:"}
           />
         </div>
