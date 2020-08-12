@@ -15,9 +15,9 @@ export default class App extends Component {
       baseIRPF: 0,
       discountIRPF: 0,
       netSalary: 0,
-      bar1: 33,
-      bar2: 33,
-      bar3: 33,
+      bar1: 0,
+      bar2: 0,
+      bar3: 100,
     };
   }
 
@@ -26,21 +26,16 @@ export default class App extends Component {
     formatNumber(finalValue);
 
     this.setState({
-      baseINSS: finalValue.baseINSS,
+      baseINSS: finalValue.baseINSS.toFixed(2),
       discountINSS: finalValue.discountINSS,
       baseIRPF: finalValue.baseIRPF.toFixed(2),
       discountIRPF: finalValue.discountIRPF,
       netSalary: finalValue.netSalary.toFixed(2),
+      bar1: finalValue.discountINSS,
+      bar2: finalValue.discountIRPF,
+      bar3: finalValue.netSalary,
     });
   };
-
-  // handleChangeBar1 = (event) => {
-  //   const bar1 = +event.target.value;
-  //   const bar2 = +event.target.value - bar1;
-  //   const bar3 = +event.target.value - bar1;
-
-  //   this.setState({ bar1, bar2, bar3 });
-  // };
 
   render() {
     const {
@@ -60,17 +55,19 @@ export default class App extends Component {
         <div style={styles.salary}>
           <InputFullSalary
             onChangeInput={this.handleChangeInput}
+            onChange={this.handleChangeBar1}
             title={"Salário Bruto:"}
           />
         </div>
-        <div>
+
+        <div style={styles.salary}>
           <div style={styles.readInput}>
             <InputReadOnly value={baseINSS} title={"Base INSS:"} />
             <InputReadOnly value={discountINSS} title={"Desconto INSS:"} />
             <InputReadOnly value={baseIRPF} title={"Base IRPF:"} />
             <InputReadOnly value={discountIRPF} title={"Desconto IRPF:"} />
-            <InputReadOnly value={netSalary} title={"Salário Líquido:"} />
           </div>
+          <InputReadOnly value={netSalary} title={"Salário Líquido:"} />
         </div>
 
         <div style={styles.bars}>
@@ -83,6 +80,8 @@ export default class App extends Component {
   }
 }
 
+// css
+
 const styles = {
   centeredTitle: {
     textAlign: "center",
@@ -91,16 +90,15 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    padding: "0px 40px",
+    padding: "0px 100px",
   },
   salary: {
     textAlign: "-webkit-center",
   },
   readInput: {
     display: "flex",
-    backgroundColor: "rgba(245, 245, 190, 0.842)",
     padding: "10px 0px",
-    width: "90%",
-    marginLeft: "30px",
+    width: "80%",
+    marginLeft: "10px",
   },
 };
