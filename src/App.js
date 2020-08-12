@@ -62,12 +62,24 @@ export default class App extends Component {
 
         <div style={styles.salary}>
           <div style={styles.readInput}>
-            <InputReadOnly value={baseINSS} title={"Base INSS:"} />
-            <InputReadOnly value={discountINSS} title={"Desconto INSS:"} />
-            <InputReadOnly value={baseIRPF} title={"Base IRPF:"} />
-            <InputReadOnly value={discountIRPF} title={"Desconto IRPF:"} />
+            <InputReadOnly value={`R$ ${baseINSS}`} title={"Base INSS:"} />
+            <InputReadOnly
+              color={"#e67e22"}
+              value={`R$ ${discountINSS}`}
+              title={"Desconto INSS:"}
+            />
+            <InputReadOnly value={`R$ ${baseIRPF}`} title={"Base IRPF:"} />
+            <InputReadOnly
+              color={"#c0392b"}
+              value={`R$ ${discountIRPF}`}
+              title={"Desconto IRPF:"}
+            />
           </div>
-          <InputReadOnly value={netSalary} title={"Salário Líquido:"} />
+          <InputReadOnly
+            color={"#16a085"}
+            value={`R$ ${netSalary}`}
+            title={"Salário Líquido:"}
+          />
         </div>
 
         <div style={styles.bars}>
