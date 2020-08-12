@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import ColorBar from "./components/color-bar/ColorBar";
 import InputFullSalary from "./components/input-full-salary/InputFullSalary";
 import InputReadOnly from "./components/input-readonly/InputReadOnly";
-import { formatNumber } from "./helpers/formatHelper.js";
+import {
+  formatNumber,
+  formatToBrl,
+  getPercent,
+} from "./helpers/formatHelper.js";
 import { calculateSalaryFrom } from "./helpers/salary.js";
 
 export default class App extends Component {
@@ -17,7 +21,7 @@ export default class App extends Component {
       netSalary: 0,
       bar1: 0,
       bar2: 0,
-      bar3: 100,
+      bar3: 0,
       percentINSS: 0,
       percentIRPF: 0,
       percentNet: 0,
@@ -29,25 +33,17 @@ export default class App extends Component {
     formatNumber(finalValue);
 
     this.setState({
-      baseINSS: finalValue.baseINSS.toFixed(2),
-      discountINSS: finalValue.discountINSS,
-      baseIRPF: finalValue.baseIRPF.toFixed(2),
-      discountIRPF: finalValue.discountIRPF,
-      netSalary: finalValue.netSalary.toFixed(2),
+      baseINSS: formatToBrl(finalValue.baseINSS),
+      discountINSS: formatToBrl(finalValue.discountINSS),
+      baseIRPF: formatToBrl(finalValue.baseIRPF),
+      discountIRPF: formatToBrl(finalValue.discountIRPF),
+      netSalary: formatToBrl(finalValue.netSalary),
       bar1: finalValue.discountINSS,
       bar2: finalValue.discountIRPF,
       bar3: finalValue.netSalary,
-      percentINSS: (
-        (finalValue.discountINSS / finalValue.baseINSS) *
-        100
-      ).toFixed(2),
-      percentIRPF: (
-        (finalValue.discountIRPF / finalValue.baseINSS) *
-        100
-      ).toFixed(2),
-      percentNet: ((finalValue.netSalary / finalValue.baseINSS) * 100).toFixed(
-        2
-      ),
+      percentINSS: getPercent(finalValue.discountINSS, finalValue.baseINSS),
+      percentIRPF: getPercent(finalValue.discountIRPF, finalValue.baseINSS),
+      percentNet: getPercent(finalValue.netSalary, finalValue.baseINSS),
     });
   };
 
@@ -79,22 +75,29 @@ export default class App extends Component {
 
         <div style={styles.salary}>
           <div style={styles.readInput}>
-            <InputReadOnly value={`R$ ${baseINSS}`} title={"Base INSS:"} />
+            <InputReadOnly value={baseINSS} title={"Base INSS:"} />
+
             <InputReadOnly
               color={"#e67e22"}
-              value={`R$ ${discountINSS} (${percentINSS}%)`}
+              value={`${discountINSS} (${
+                isNaN(percentINSS) ? 0 : percentINSS
+              }%)`}
               title={"Desconto INSS:"}
             />
-            <InputReadOnly value={`R$ ${baseIRPF}`} title={"Base IRPF:"} />
+
+            <InputReadOnly value={baseIRPF} title={"Base IRPF:"} />
+
             <InputReadOnly
               color={"#c0392b"}
-              value={`R$ ${discountIRPF} (${percentIRPF}%)`}
+              value={`${discountIRPF} (${
+                isNaN(percentIRPF) ? 0 : percentIRPF
+              }%)`}
               title={"Desconto IRPF:"}
             />
           </div>
           <InputReadOnly
             color={"#16a085"}
-            value={`R$ ${netSalary} (${percentNet}%)`}
+            value={`${netSalary} (${isNaN(percentNet) ? 0 : percentNet}%)`}
             title={"Salário Líquido:"}
           />
         </div>
@@ -110,7 +113,6 @@ export default class App extends Component {
 }
 
 // css
-
 const styles = {
   centeredTitle: {
     textAlign: "center",
@@ -119,7 +121,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    padding: "0px 100px",
+    padding: "0px 70px",
   },
   salary: {
     textAlign: "-webkit-center",
@@ -127,7 +129,6 @@ const styles = {
   readInput: {
     display: "flex",
     padding: "10px 0px",
-    width: "80%",
-    marginLeft: "10px",
+    width: "90%",
   },
 };
