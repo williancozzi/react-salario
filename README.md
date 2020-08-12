@@ -4,17 +4,21 @@
 Create, using React, an application named 'react-salario' that should be able to calculate the net salary from gross salary, considering the 2020 CLT rules.
 
 ## Techs
-
 * Javascript
 * Class Components
 * React
 * Materialize
 
+## Results
+![React-Salário-Google-Chrome-2020-08-12-16-43-56-1](https://user-images.githubusercontent.com/39573063/90061261-481c5480-dcbc-11ea-87d5-974ed5e88abe.gif)
+
+## Test the application
+> https://react-salary.netlify.app/
+
 ## Requirements
 For rules the following site shall be considered as reference: 'https://www.todacarreira.com/calculo-salario-liquido/'
 
 * The following fields shall be presented:
-
   - Gross salary (editable)
   - Base salary for INSS discount (read-only)
   - INSS discount (read-only)
@@ -34,7 +38,6 @@ For rules the following site shall be considered as reference: 'https://www.toda
 * Implementation shall use Class Components.
 
 ## Instalation
-
 In the project directory, you can run:
 
 ### `yarn start`
